@@ -13,7 +13,7 @@ import cz.msebera.android.httpclient.entity.StringEntity
 // it receives json strings which contain the information
 class RestHttpHandler {
     // setter, useful to give server location
-    var basE_URL = "http://192.168.2.131:8080"
+    var basE_URL = "http://192.168.0.136:9888"
     private val defaultBaseUrl = "http://192.168.2.131:8080"
     private val client: AsyncHttpClient
 

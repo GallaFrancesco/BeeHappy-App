@@ -3,6 +3,7 @@ package ami.beehappy.beehappy
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -61,6 +62,8 @@ class DisplayActivity : AppCompatActivity() {
 
             // query for infos
             refreshValues()
+            // start the background notification service
+            startBackgroundService()
         }
 
         private fun newToggleButton(id: Int, endpoint: String): ToggleButton {
@@ -146,6 +149,14 @@ class DisplayActivity : AppCompatActivity() {
             val intent = Intent(this, FeedActivity::class.java)
             startActivity(intent)
         }
+
+        fun startWebcamActivity(view: View) {
+            // start the food scheduler
+            val webcam = WebcamHelper ()
+            webcam.download_image("http://192.168.0.136:9888/f.jpg", this.baseContext)
+
+        }
+
 
 
         private fun queryVal(endpoint: String, keys: Array<String>, set: (String) -> (Unit) ) {
@@ -270,6 +281,15 @@ class DisplayActivity : AppCompatActivity() {
                 }
             }
         }
+
+    // section used to start the background service
+    // the intent passes the url to the worker
+    private fun startBackgroundService (){
+        var serviceIntent = Intent(this, BackgroundService::class.java)
+        serviceIntent.setData(null)
+        this.startService(serviceIntent)
+    }
+
     companion object {
         var restHandle = RestHttpHandler()
     }

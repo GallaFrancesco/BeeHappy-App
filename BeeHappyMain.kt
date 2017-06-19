@@ -7,10 +7,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
+import android.widget.*
 
 import java.util.ArrayList
 
@@ -29,8 +26,11 @@ class BeeHappyMain : AppCompatActivity() {
         this.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, idList)
 
         val listView = findViewById(R.id.list) as ListView
-        listView.adapter = adapter
+        listView.adapter = this.adapter
         listView.onItemClickListener = MessageClickedHandler
+
+        var nt: NotificationHelper = NotificationHelper(this.baseContext)
+        nt.notifyEvent("ciaone")
     }
 
     // called when the user taps the Enter button on the Select Id screen
@@ -78,6 +78,8 @@ class BeeHappyMain : AppCompatActivity() {
         }
         // finish by committing the changes to the shared preferences file
         editor.commit()
+
+
     }
 
     // retrieve an array of IDs from the shared preferences file
